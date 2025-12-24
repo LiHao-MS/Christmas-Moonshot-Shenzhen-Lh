@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 来自同事的一份神秘惊喜</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🎄 你的圣诞惊喜到了！</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,30 +18,40 @@
             --christmas-red: #d42426;
             --christmas-dark-red: #8a1214;
             --christmas-green: #165b33;
-            --gold: #f8b229;
             --snow-white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #d42426 0%, #8a1214 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            /* 确保边框不会撑破布局 */
+            -webkit-tap-highlight-color: transparent;
+            /* 去除点击时的高亮色块 */
         }
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px 0;
+            /* 上下留白 */
             font-family: 'Noto Sans SC', sans-serif;
-            background: linear-gradient(135deg, var(--christmas-red) 0%, var(--christmas-dark-red) 100%);
+            background: var(--bg-gradient);
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            /* 解决微信里滑动可能出现的背景断层 */
+            background-attachment: fixed;
         }
 
-        /* 雪花特效保持不变，效果很好 */
+        /* 雪花特效 - 调低透明度，避免干扰文字阅读 */
         .snowflake {
             color: #fff;
             font-size: 1.2em;
-            font-family: Arial;
             text-shadow: 0 0 1px #000;
+            opacity: 0.8;
+            pointer-events: none;
+            /* 关键：让点击穿透雪花 */
         }
 
         @-webkit-keyframes snowflakes-fall {
@@ -70,14 +82,11 @@
             position: fixed;
             top: -10%;
             z-index: 1;
-            user-select: none;
-            cursor: default;
-            animation-name: snowflakes-fall, snowflakes-shake;
-            animation-duration: 10s, 3s;
-            animation-timing-function: linear, ease-in-out;
-            animation-iteration-count: infinite, infinite;
+            /* 放在最底层 */
+            animation: snowflakes-fall 10s linear infinite, snowflakes-shake 3s ease-in-out infinite;
         }
 
+        /* 雪花具体配置省略，保持原样即可，这里简写 */
         .snowflake:nth-of-type(1) {
             left: 1%;
             animation-delay: 0s, 0s
@@ -99,44 +108,40 @@
         }
 
         .snowflake:nth-of-type(5) {
-            left: 40%;
+            left: 50%;
             animation-delay: 2s, 2s
         }
 
         .snowflake:nth-of-type(6) {
-            left: 50%;
-            animation-delay: 8s, 3s
+            left: 70%;
+            animation-delay: 4s, 1s
         }
 
         .snowflake:nth-of-type(7) {
-            left: 60%;
-            animation-delay: 6s, 2s
+            left: 90%;
+            animation-delay: 2.5s, 0s
         }
 
-        .snowflake:nth-of-type(8) {
-            left: 70%;
-            animation-delay: 2.5s, 1s
-        }
-
-        /* 卡片容器 */
+        /* 卡片主体 */
         .card {
             background: var(--snow-white);
-            width: 88%;
-            max-width: 420px;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            padding: 2.5rem 2rem;
+            width: 90%;
+            /* 手机端占比宽一点 */
+            max-width: 400px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 2rem 1.5rem;
+            /* 减少侧边距 */
             text-align: center;
             z-index: 10;
             position: relative;
-            /* 增加一个纹理背景，更有纸质感 */
             background-image: radial-gradient(#f0f0f0 1px, transparent 1px);
             background-size: 20px 20px;
-            /* 入场动画 */
-            animation: cardSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation: cardSlideUp 0.6s ease-out;
+            margin-bottom: 20px;
+            /* 防止被微信底部栏遮挡 */
         }
 
-        /* 顶部装饰带 */
         .card::before {
             content: '';
             position: absolute;
@@ -144,150 +149,152 @@
             left: 0;
             right: 0;
             height: 8px;
-            background: repeating-linear-gradient(45deg,
-                    var(--christmas-green),
-                    var(--christmas-green) 20px,
-                    var(--christmas-red) 20px,
-                    var(--christmas-red) 40px);
-            border-radius: 12px 12px 0 0;
+            background: repeating-linear-gradient(45deg, var(--christmas-green), var(--christmas-green) 15px, var(--christmas-red) 15px, var(--christmas-red) 30px);
+            border-radius: 16px 16px 0 0;
         }
 
         @keyframes cardSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(30px) scale(0.95);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         h1 {
             color: var(--christmas-red);
             font-family: 'Great Vibes', cursive;
-            /* 英文手写体 */
-            font-size: 3rem;
-            margin: 0;
-            line-height: 1.2;
+            font-size: 2.8rem;
+            /* 手机端稍微调小一点以免换行 */
+            margin: 0.5rem 0 0 0;
             text-shadow: 2px 2px 0px rgba(212, 36, 38, 0.1);
         }
 
         .subtitle {
             color: var(--christmas-green);
             font-family: 'Ma Shan Zheng', cursive;
-            /* 中文手写体 */
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            margin-top: 5px;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
         }
 
-        /* 拍立得风格照片框 */
+        /* 拍立得照片 */
         .gift-frame {
             background: white;
-            padding: 10px 10px 30px 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transform: rotate(-2deg);
-            transition: transform 0.3s;
-            margin-bottom: 1.5rem;
+            /* 保持微倾斜，更有动感 */
+            margin: 0 auto 1.5rem auto;
             border: 1px solid #eee;
-        }
-
-        .gift-frame:hover {
-            transform: rotate(0deg) scale(1.02);
+            width: 95%;
+            /* 防止超出卡片 */
         }
 
         .gift-img {
             width: 100%;
             height: auto;
             display: block;
-            /* 保持宽高比 */
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            background-color: #f0f0f0;
-            /* 图片未加载时的占位色 */
+            background-color: #eee;
         }
 
         .message {
             text-align: left;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #444;
-            background: rgba(22, 91, 51, 0.05);
-            padding: 15px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #555;
+            background: rgba(22, 91, 51, 0.04);
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--christmas-green);
+            margin-bottom: 1.2rem;
+            border-left: 3px solid var(--christmas-green);
+        }
+
+        .message p {
+            margin: 5px 0;
         }
 
         .tracking-box {
             background: #fff;
-            border: 2px dashed #ddd;
+            border: 2px dashed #e0e0e0;
             padding: 1rem;
             border-radius: 12px;
-            margin-top: 1rem;
-            position: relative;
+            margin-top: 0.5rem;
         }
 
         .tracking-label {
             font-size: 0.75rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #999;
             margin-bottom: 5px;
         }
 
         .tracking-number {
             font-family: 'Courier New', monospace;
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: #333;
             display: block;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            /* 允许用户长按选择复制 */
+            user-select: text;
+            -webkit-user-select: text;
             word-break: break-all;
         }
 
+        /* 优化后的按钮 - 更适合手指点击 */
         .btn {
             background-color: var(--christmas-red);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 0;
+            /* 增加高度 */
+            width: 100%;
+            /* 占满宽度，更容易点 */
             border-radius: 50px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(212, 36, 38, 0.3);
-            transition: all 0.2s;
-            width: 80%;
-            display: inline-flex;
+            box-shadow: 0 4px 10px rgba(212, 36, 38, 0.25);
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-        }
-
-        .btn:hover {
-            background-color: var(--christmas-dark-red);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(212, 36, 38, 0.4);
+            transition: background-color 0.2s;
+            text-decoration: none;
+            /* 防止微信强制加下划线 */
         }
 
         .btn:active {
-            transform: translateY(0);
+            transform: scale(0.98);
+            /* 点击时的按压感 */
+            background-color: var(--christmas-dark-red);
         }
 
         .btn svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
 
         .footer {
-            margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #aaa;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: #bbb;
             font-family: 'Great Vibes', cursive;
-            font-size: 1.2rem;
+        }
+
+        /* 针对超小屏幕手机的适配 (如 iPhone SE 1代) */
+        @media (max-width: 350px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .card {
+                padding: 1.5rem 1rem;
+            }
         }
     </style>
 </head>
@@ -302,7 +309,6 @@
         <div class="snowflake">❅</div>
         <div class="snowflake">❆</div>
         <div class="snowflake">❅</div>
-        <div class="snowflake">❆</div>
     </div>
 
     <div class="card">
@@ -314,19 +320,20 @@
         </div>
 
         <div class="message">
-            <p>👋 Hello 你好！恭喜你抽中了这份“隐藏款”礼物。</p>
-            <p>这份礼物携带了零下20度的热情，为了防止“水土不服”，它正在顺丰小哥的护送下马不停蹄地赶来。预计 <strong>明天 (12.25)</strong> 送达。</p>
+            <p><strong>Hello 你好！</strong>圣诞快乐🎄</p>
+            <p>你的礼物是“隐藏款”，它带着来自哈尔滨零下20度的热情正在赶来！</p><p>顺丰小哥正在火速配送中，预计 <strong>明天</strong> 就能到你手上啦。</p>
         </div>
 
         <div class="tracking-box">
-            <div class="tracking-label">SF Express Tracking Info</div>
+            <div class="tracking-label">顺丰速运单号</div>
             <span class="tracking-number" id="sf-code">SF1462367307645</span>
+
             <button class="btn" onclick="copyCode()">
                 <svg viewBox="0 0 24 24">
                     <path
                         d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
                 </svg>
-                复制单号查询
+                一键复制单号
             </button>
         </div>
 
@@ -340,42 +347,46 @@
             const code = document.getElementById('sf-code').innerText;
             const btn = document.querySelector('.btn');
             const originalHTML = btn.innerHTML;
+            const originalColor = getComputedStyle(btn).backgroundColor;
 
-            // 使用 Clipboard API，如果失败则回退
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(code).then(showSuccess).catch(() => fallbackCopy(code));
-            } else {
-                fallbackCopy(code);
+            // 微信浏览器兼容性写法
+            const textArea = document.createElement("textarea");
+            textArea.value = code;
+
+            // 避免拉起键盘
+            textArea.setAttribute('readonly', '');
+            textArea.style.position = 'absolute';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+
+            // 选中并复制
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // 适配 iOS
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showSuccess();
+                } else {
+                    throw new Error('Copy failed');
+                }
+            } catch (err) {
+                // 如果自动复制失败，提示用户长按
+                alert('自动复制失败，请长按单号手动复制');
             }
+            document.body.removeChild(textArea);
 
             function showSuccess() {
-                btn.style.backgroundColor = "#165b33"; // 变成绿色
-                btn.innerHTML = "✅ 复制成功！";
+                btn.style.backgroundColor = "#165b33"; // 变成圣诞绿
+                btn.innerHTML = "✅ 已复制到剪贴板";
 
-                // 震动反馈 (Android支持)
+                // 震动反馈 (部分安卓微信支持)
                 if (navigator.vibrate) navigator.vibrate(50);
 
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
-                    btn.style.backgroundColor = "#d42426"; // 变回红色
+                    btn.style.backgroundColor = ""; // 恢复原色
                 }, 2000);
-            }
-
-            function fallbackCopy(text) {
-                // 传统方法的兼容性处理
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showSuccess();
-                } catch (err) {
-                    alert('请手动长按单号复制: ' + text);
-                }
-                document.body.removeChild(textArea);
             }
         }
     </script>
