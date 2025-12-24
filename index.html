@@ -4,19 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 Merry Christmas!</title>
+    <title>🎄 来自同事的一份神秘惊喜</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
             --christmas-red: #d42426;
+            --christmas-dark-red: #8a1214;
             --christmas-green: #165b33;
-            --snow-white: #f8f9fa;
+            --gold: #f8b229;
+            --snow-white: #ffffff;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--christmas-red);
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, var(--christmas-red) 0%, var(--christmas-dark-red) 100%);
             color: #333;
             display: flex;
             justify-content: center;
@@ -26,10 +34,10 @@
             position: relative;
         }
 
-        /* 雪花背景特效 */
+        /* 雪花特效保持不变，效果很好 */
         .snowflake {
             color: #fff;
-            font-size: 1em;
+            font-size: 1.2em;
             font-family: Arial;
             text-shadow: 0 0 1px #000;
         }
@@ -46,17 +54,14 @@
 
         @-webkit-keyframes snowflakes-shake {
             0% {
-                -webkit-transform: translateX(0px);
                 transform: translateX(0px)
             }
 
             50% {
-                -webkit-transform: translateX(80px);
                 transform: translateX(80px)
             }
 
             100% {
-                -webkit-transform: translateX(0px);
                 transform: translateX(0px)
             }
         }
@@ -65,164 +70,224 @@
             position: fixed;
             top: -10%;
             z-index: 1;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
             cursor: default;
-            -webkit-animation-name: snowflakes-fall, snowflakes-shake;
-            -webkit-animation-duration: 10s, 3s;
-            -webkit-animation-timing-function: linear, ease-in-out;
-            -webkit-animation-iteration-count: infinite, infinite;
-            -webkit-animation-play-state: running, running
-        }
-
-        .snowflake:nth-of-type(0) {
-            left: 1%;
-            -webkit-animation-delay: 0s, 0s
+            animation-name: snowflakes-fall, snowflakes-shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
         }
 
         .snowflake:nth-of-type(1) {
-            left: 10%;
-            -webkit-animation-delay: 1s, 1s
+            left: 1%;
+            animation-delay: 0s, 0s
         }
 
         .snowflake:nth-of-type(2) {
-            left: 20%;
-            -webkit-animation-delay: 6s, .5s
+            left: 10%;
+            animation-delay: 1s, 1s
         }
 
         .snowflake:nth-of-type(3) {
-            left: 30%;
-            -webkit-animation-delay: 4s, 2s
+            left: 20%;
+            animation-delay: 6s, .5s
         }
 
         .snowflake:nth-of-type(4) {
-            left: 40%;
-            -webkit-animation-delay: 2s, 2s
+            left: 30%;
+            animation-delay: 4s, 2s
         }
 
         .snowflake:nth-of-type(5) {
-            left: 50%;
-            -webkit-animation-delay: 8s, 3s
+            left: 40%;
+            animation-delay: 2s, 2s
         }
 
         .snowflake:nth-of-type(6) {
-            left: 60%;
-            -webkit-animation-delay: 6s, 2s
+            left: 50%;
+            animation-delay: 8s, 3s
         }
 
         .snowflake:nth-of-type(7) {
-            left: 70%;
-            -webkit-animation-delay: 2.5s, 1s
+            left: 60%;
+            animation-delay: 6s, 2s
         }
 
         .snowflake:nth-of-type(8) {
-            left: 80%;
-            -webkit-animation-delay: 1s, 0s
-        }
-
-        .snowflake:nth-of-type(9) {
-            left: 90%;
-            -webkit-animation-delay: 3s, 1.5s
+            left: 70%;
+            animation-delay: 2.5s, 1s
         }
 
         /* 卡片容器 */
         .card {
             background: var(--snow-white);
-            width: 90%;
-            max-width: 400px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 2rem;
+            width: 88%;
+            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            padding: 2.5rem 2rem;
             text-align: center;
             z-index: 10;
-            box-sizing: border-box;
-            border: 4px solid var(--christmas-green);
+            position: relative;
+            /* 增加一个纹理背景，更有纸质感 */
+            background-image: radial-gradient(#f0f0f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            /* 入场动画 */
+            animation: cardSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* 顶部装饰带 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(45deg,
+                    var(--christmas-green),
+                    var(--christmas-green) 20px,
+                    var(--christmas-red) 20px,
+                    var(--christmas-red) 40px);
+            border-radius: 12px 12px 0 0;
+        }
+
+        @keyframes cardSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
             color: var(--christmas-red);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Great Vibes', cursive;
+            /* 英文手写体 */
+            font-size: 3rem;
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 2px 2px 0px rgba(212, 36, 38, 0.1);
         }
 
         .subtitle {
             color: var(--christmas-green);
-            font-weight: bold;
-            font-size: 1.1rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            /* 中文手写体 */
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
+            margin-top: 5px;
         }
 
-        .gift-img-container {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            overflow: hidden;
+        /* 拍立得风格照片框 */
+        .gift-frame {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
             margin-bottom: 1.5rem;
-            border: 2px dashed var(--christmas-red);
-            padding: 5px;
+            border: 1px solid #eee;
+        }
+
+        .gift-frame:hover {
+            transform: rotate(0deg) scale(1.02);
         }
 
         .gift-img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 8px;
+            /* 保持宽高比 */
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            /* 图片未加载时的占位色 */
         }
 
         .message {
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            color: #555;
             text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #444;
+            background: rgba(22, 91, 51, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--christmas-green);
         }
 
         .tracking-box {
-            background: #f1f1f1;
+            background: #fff;
+            border: 2px dashed #ddd;
             padding: 1rem;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-top: 1rem;
+            position: relative;
         }
 
         .tracking-label {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         .tracking-number {
-            font-family: monospace;
-            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #333;
-            letter-spacing: 1px;
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            word-break: break-all;
         }
 
         .btn {
-            background-color: var(--christmas-green);
+            background-color: var(--christmas-red);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s;
-            text-decoration: none;
-            display: inline-block;
+            box-shadow: 0 4px 6px rgba(212, 36, 38, 0.3);
+            transition: all 0.2s;
+            width: 80%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--christmas-dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(212, 36, 38, 0.4);
         }
 
         .btn:active {
-            transform: scale(0.95);
+            transform: translateY(0);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .footer {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: #999;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #aaa;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -238,27 +303,31 @@
         <div class="snowflake">❆</div>
         <div class="snowflake">❅</div>
         <div class="snowflake">❆</div>
-        <div class="snowflake">❅</div>
-        <div class="snowflake">❆</div>
     </div>
 
     <div class="card">
-        <h1>圣诞快乐! 🎄</h1>
-        <div class="subtitle">来自哈尔滨冰雪大世界的问候</div>
+        <h1>Merry Christmas!</h1>
+        <div class="subtitle">来自哈尔滨的冰雪快递 ❄️</div>
 
-        <div class="gift-img-container">
+        <div class="gift-frame">
             <img src="./gift.png" alt="神秘礼物" class="gift-img">
         </div>
 
         <div class="message">
-            <p>亲爱的，虽然今天无法亲手把礼物交给你，但这份心意正跨越千里向你飞奔而来。</p>
-            <p>这是我从哈尔滨为你挑选的惊喜，因为路途遥远，它正在顺丰小哥的护送下，<strong>预计明天送达</strong>。</p>
+            <p>👋 Hello 你好！恭喜你抽中了这份“隐藏款”礼物。</p>
+            <p>这份礼物携带了零下20度的热情，为了防止“水土不服”，它正在顺丰小哥的护送下马不停蹄地赶来。预计 <strong>明天 (12.25)</strong> 送达。</p>
         </div>
 
         <div class="tracking-box">
-            <div class="tracking-label">顺丰速运单号</div>
+            <div class="tracking-label">SF Express Tracking Info</div>
             <span class="tracking-number" id="sf-code">SF1462367307645</span>
-            <button class="btn" onclick="copyCode()">复制单号查询</button>
+            <button class="btn" onclick="copyCode()">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                </svg>
+                复制单号查询
+            </button>
         </div>
 
         <div class="footer">
@@ -269,18 +338,45 @@
     <script>
         function copyCode() {
             const code = document.getElementById('sf-code').innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                const btn = document.querySelector('.btn');
-                const originalText = btn.innerText;
-                btn.innerText = "复制成功！";
-                btn.style.backgroundColor = "#d42426"; // 变成红色提示
+            const btn = document.querySelector('.btn');
+            const originalHTML = btn.innerHTML;
+
+            // 使用 Clipboard API，如果失败则回退
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(showSuccess).catch(() => fallbackCopy(code));
+            } else {
+                fallbackCopy(code);
+            }
+
+            function showSuccess() {
+                btn.style.backgroundColor = "#165b33"; // 变成绿色
+                btn.innerHTML = "✅ 复制成功！";
+
+                // 震动反馈 (Android支持)
+                if (navigator.vibrate) navigator.vibrate(50);
+
                 setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.backgroundColor = "#165b33"; // 变回绿色
+                    btn.innerHTML = originalHTML;
+                    btn.style.backgroundColor = "#d42426"; // 变回红色
                 }, 2000);
-            }).catch(err => {
-                alert('复制失败，请手动长按单号复制');
-            });
+            }
+
+            function fallbackCopy(text) {
+                // 传统方法的兼容性处理
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showSuccess();
+                } catch (err) {
+                    alert('请手动长按单号复制: ' + text);
+                }
+                document.body.removeChild(textArea);
+            }
         }
     </script>
 </body>
